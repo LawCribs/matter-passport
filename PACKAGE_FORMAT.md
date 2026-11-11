@@ -10,7 +10,7 @@ ZIP container. All JSON is UTF-8; the manifest is canonicalized (JCS profile: so
 matter-passport.lcp
   manifest.json                 canonical manifest (see schema)
   signatures/
-    manifest-signature.json     { algorithm, keyId, publicKey, payloadDigest, signatureValue }
+    manifest-signature.json     { algorithm, keyId, publicKeyJwk, payloadDigest, signatureValue }
   records/
     <recordId>/
       metadata.json             record metadata + digest + provenance classification

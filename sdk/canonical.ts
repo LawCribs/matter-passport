@@ -15,7 +15,12 @@ export function canonicalize(value: unknown): string {
 
 function sortValue(v: unknown): unknown {
   if (v === null || typeof v !== "object") return v;
-  if (Array.isArray(v)) return v.map(sortValue);
+  if (Array.isArray(v)) {
+    return v.map((item) => {
+      if (item === undefined) throw new Error("canonicalize: undefined values are not allowed");
+      return sortValue(item);
+    });
+  }
   const obj = v as Record<string, unknown>;
   const out: Record<string, unknown> = {};
   for (const k of Object.keys(obj).sort()) {

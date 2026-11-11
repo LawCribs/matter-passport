@@ -139,6 +139,10 @@ export interface PassportTransfer {
   /** All verified receipts - a link can be acknowledged by more than
    *  one party. recipientReceipt mirrors the first for compatibility. */
   recipientReceipts?: TransferReceipt[];
+  /** Dedupe keys of receipts already recorded as failed - keeps
+   *  forgery attempts visible in the event chain without re-logging
+   *  the same failure on every sync. */
+  failedReceiptKeys?: string[];
   /** Relay access audit: how many times the blob was fetched. */
   fetchCount?: number;
   /** Sender-set fetch cap (one-time link = 1). */

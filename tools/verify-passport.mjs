@@ -58,17 +58,28 @@ if (eventsEntry) {
   let ok = true, prev = null;
   // The declared range can start anywhere - sequence follows the
   // manifest window, not an assumed 1..N.
-  let seq = (manifest.eventRange?.fromSequence ?? 1) - 1;
+  const fromSeq = manifest.eventRange?.fromSequence ?? 1;
+  let seq = fromSeq - 1;
   for (const line of lines) {
     seq++;
     const ev = JSON.parse(line);
+    // A windowed range's first event commits to history outside the
+    // package - accepted as an opaque boundary, disclosed in detail.
+    const prevOk = seq === fromSeq && fromSeq > 1
+      ? typeof ev.previousEventDigest === "string" && ev.previousEventDigest.length > 0
+      : ev.previousEventDigest === prev;
     const pd = sha(JSON.stringify(ev.payload));
     const recomputed = sha(`${ev.sequenceNumber}|${ev.eventType}|${ev.previousEventDigest ?? ""}|${pd}`);
-    if (ev.sequenceNumber !== seq || ev.previousEventDigest !== prev || recomputed !== ev.eventDigest || pd !== ev.payloadDigest) { ok = false; break; }
+    if (ev.sequenceNumber !== seq || !prevOk || recomputed !== ev.eventDigest || pd !== ev.payloadDigest) { ok = false; break; }
     parsedEvents.push(ev);
     eventDigests.push(ev.eventDigest); prev = ev.eventDigest;
   }
-  check(ok ? "pass" : "fail", "Event chain intact", ok ? `${lines.length} events consistent` : `broken at sequence ${seq}`);
+  check(ok ? "pass" : "fail", "Event chain intact",
+    ok
+      ? fromSeq > 1
+        ? `${lines.length} events consistent from sequence ${fromSeq} - link to earlier events not verifiable from this package`
+        : `${lines.length} events consistent`
+      : `broken at sequence ${seq}`);
   if (manifest.eventRange) {
     const expected = manifest.eventRange.toSequence - manifest.eventRange.fromSequence + 1;
     if (expected !== lines.length || manifest.eventRange.fromSequence > manifest.eventRange.toSequence || manifest.eventRange.fromSequence < 1) {

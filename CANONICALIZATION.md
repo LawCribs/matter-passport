@@ -38,8 +38,9 @@ All digests are `SHA-256`, base64url without padding (`base64url` in Node, `base
 
 `payloadDigest` deliberately uses plain `JSON.stringify`, not JCS-lite. Two consequences implementers miss:
 
-1. Key order matters: `JSON.stringify({a:1,b:2})` and `JSON.stringify({b:2,a:1})` differ. Event payloads are hashed in the key order the producer emitted them; verifiers re-serialize the parsed payload and MUST preserve the order encountered in `events.jsonl` (JSON parsers that reorder object keys - e.g. sorting them - will compute wrong digests).
+1. Key order matters: `JSON.stringify({a:1,b:2})` and `JSON.stringify({b:2,a:1})` differ. Event payloads are hashed in the key order the producer emitted them; verifiers re-serialize the parsed payload and MUST reproduce JavaScript's own-property ordering (see point 3) - parsers that sort keys or keep pure file order will compute wrong digests for payloads with numeric-looking keys.
 2. String escaping follows `JSON.stringify`, which differs subtly across languages (Python `json.dumps` needs `ensure_ascii=False` and `separators=(",", ":")` to match; it still differs on a few edge cases the vectors cover).
+3. Integer-index keys reorder: ECMAScript enumerates own property keys as array indices first - canonical decimal strings `"0"` through `"4294967294"` (no leading zeros, no `"4294967295"`) in ascending numeric order - then all remaining string keys in insertion order. So `JSON.stringify(JSON.parse('{"b":1,"10":2,"2":3,"a":4}'))` emits `{"2":3,"10":2,"b":1,"a":4}`, NOT file order. Non-JS implementations MUST replicate this when re-serializing parsed payloads for `payloadDigest` and the other `JSON.stringify`-based formulas. JCS-lite canonicalization is unaffected - it sorts all keys anyway.
 
 ## Signature encoding
 

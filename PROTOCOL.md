@@ -13,7 +13,7 @@ An open specification for portable, cryptographically verifiable matter records.
 
 ## Format
 
-A Matter Passport is delivered as a ``.lcp` (LawCribs Passport Package)` ZIP container (layout in `PACKAGE_FORMAT.md`) carrying:
+A Matter Passport is delivered as a `.lcp` (LawCribs Passport Package) ZIP container (layout in `PACKAGE_FORMAT.md`) carrying:
 
 - `manifest.json` - the canonical manifest (schema below)
 - `signatures/manifest-signature.json` - the ES256 signature record
@@ -69,7 +69,7 @@ A conformant verifier reports per-check results, never a bare "verified":
 - Manifest present + schema valid
 - Record digests match (per-record; missing content is a scope warning, not a failure)
 - Merkle root recomputed over record + event digests and compared to the signed `integrity.merkleRoot`
-- Event chain intact - linkage plus recomputed `eventDigest` per event, within the declared `eventRange` (partial ranges supported)
+- Event chain intact - linkage plus recomputed `eventDigest` per event, within the declared `eventRange`. Partial ranges are supported: when `fromSequence > 1` the first event's `previousEventDigest` commits to history outside the package, so verifiers accept it as an opaque boundary (it must be a non-empty digest string) and disclose that the link to earlier events is not verifiable from this package alone. A windowed package whose first event claims genesis linkage (`previousEventDigest: null`) is inconsistent and fails.
 - Manifest signature valid - proves key possession only
 - Signer identity NOT independently established
 - Timestamp is client-reported unless a trusted timestamp is attached

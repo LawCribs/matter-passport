@@ -6,7 +6,7 @@ This policy covers the **Matter Passport protocol artifacts**: the specification
 
 ## How to report
 
-Email **info@lawcribs.com** with the subject line `Matter Passport Security`. Include:
+Email **info@lawcribs.com** with the subject line `Matter Passport Security`, or open a private vulnerability report via [GitHub Security Advisories](https://github.com/LawCribs/matter-passport/security/advisories/new) on the public protocol repository. Include:
 
 - which artifact is affected (spec document, `lawcribs_conformance.py`, an `sdk/` module, `verify-passport.mjs`, a fixture, or the `.lcp` format itself),
 - a description of the issue and its security impact,

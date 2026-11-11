@@ -121,7 +121,8 @@ export async function verifyPackage(data: ArrayBuffer | Uint8Array): Promise<Ver
     let prev: string | null = null;
     // The declared range can start anywhere - the expected sequence
     // follows the manifest window, not an assumed 1..N.
-    let seq = (manifest.eventRange?.fromSequence ?? 1) - 1;
+    const fromSeq = manifest.eventRange?.fromSequence ?? 1;
+    let seq = fromSeq - 1;
     for (const line of lines) {
       seq++;
       let ev: Record<string, unknown>;
@@ -131,7 +132,13 @@ export async function verifyPackage(data: ArrayBuffer | Uint8Array): Promise<Ver
         chainOk = false;
         break;
       }
-      if (ev.sequenceNumber !== seq || ev.previousEventDigest !== prev) { chainOk = false; break; }
+      // A windowed range's first event commits to history outside the
+      // package - that link cannot be recomputed here, so the declared
+      // digest is accepted as an opaque boundary and disclosed below.
+      const prevOk = seq === fromSeq && fromSeq > 1
+        ? typeof ev.previousEventDigest === "string" && ev.previousEventDigest.length > 0
+        : ev.previousEventDigest === prev;
+      if (ev.sequenceNumber !== seq || !prevOk) { chainOk = false; break; }
       // Recompute the digest over the declared formula so a forged
       // payload cannot survive linkage alone.
       const payloadDigest = await sha256Base64(JSON.stringify(ev.payload));
@@ -141,7 +148,12 @@ export async function verifyPackage(data: ArrayBuffer | Uint8Array): Promise<Ver
       eventDigests.push(ev.eventDigest as string);
       prev = ev.eventDigest as string;
     }
-    push("events", "Event chain intact", chainOk ? "pass" : "fail", chainOk ? `${eventCount} events, chain and digests consistent` : `chain broken at sequence ${seq}`);
+    push("events", "Event chain intact", chainOk ? "pass" : "fail",
+      chainOk
+        ? fromSeq > 1
+          ? `${eventCount} events consistent from sequence ${fromSeq} - link to earlier events not verifiable from this package`
+          : `${eventCount} events, chain and digests consistent`
+        : `chain broken at sequence ${seq}`);
     if (manifest.eventRange) {
       const expected = manifest.eventRange.toSequence - manifest.eventRange.fromSequence + 1;
       if (expected !== eventCount || manifest.eventRange.fromSequence > manifest.eventRange.toSequence || manifest.eventRange.fromSequence < 1) {

@@ -1,5 +1,5 @@
 # Matter Passport Key Management
-> *An open protocol maintained by [LawCribs](https://lawcribs.com). Version 1.0.0.*
+> *An open protocol maintained by [LawCribs](https://lawcribs.com). Version 1.1.0.*
 
 
 ## Model

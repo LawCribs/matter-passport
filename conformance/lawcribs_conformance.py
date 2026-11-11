@@ -79,11 +79,34 @@ def _js_parse_constant(s):
     raise ValueError(f"invalid JSON constant: {s}")
 
 
+def _is_array_index(k):
+    """ECMAScript integer-index key: canonical uint32 decimal string
+    below 2^32-1 ("0".."4294967294", no leading zeros)."""
+    return (isinstance(k, str) and k.isascii() and k.isdigit()
+            and (len(k) == 1 or not k.startswith("0"))
+            and int(k) < 4294967295)
+
+
+def _js_order(v):
+    """Reorder object keys the way JS engines enumerate them for
+    JSON.stringify: integer indices ascending first, then string keys
+    in insertion order. Python dicts keep file order, which diverges
+    from JS for numeric-looking keys."""
+    if isinstance(v, dict):
+        idx = sorted((k for k in v if _is_array_index(k)), key=int)
+        rest = [k for k in v if not _is_array_index(k)]
+        return {k: _js_order(v[k]) for k in idx + rest}
+    if isinstance(v, list):
+        return [_js_order(x) for x in v]
+    return v
+
+
 def js_loads(s):
     """json.loads with JS semantics: strict constants, double-precision
-    numbers. Use for every document whose bytes feed digests or checks."""
-    return json.loads(s, parse_int=_js_parse_int, parse_float=_js_parse_float,
-                      parse_constant=_js_parse_constant)
+    numbers, own-property key ordering. Use for every document whose
+    bytes feed digests or checks."""
+    return _js_order(json.loads(s, parse_int=_js_parse_int, parse_float=_js_parse_float,
+                                 parse_constant=_js_parse_constant))
 
 
 # --------------------------------------------------------------------------
@@ -582,7 +605,8 @@ def verify_package(path):
         chain_ok = True
         prev = None
         er = manifest.get("eventRange") or {}
-        seq = er.get("fromSequence", 1) - 1
+        from_seq = er.get("fromSequence", 1)
+        seq = from_seq - 1
         for line in lines:
             seq += 1
             try:
@@ -590,7 +614,13 @@ def verify_package(path):
             except Exception:
                 chain_ok = False
                 break
-            if ev.get("sequenceNumber") != seq or ev.get("previousEventDigest") != prev:
+            # A windowed range's first event commits to history outside
+            # the package - accepted as an opaque boundary, disclosed
+            # in the check detail.
+            first_prev = ev.get("previousEventDigest")
+            prev_ok = (isinstance(first_prev, str) and len(first_prev) > 0) \
+                if seq == from_seq and from_seq > 1 else first_prev == prev
+            if ev.get("sequenceNumber") != seq or not prev_ok:
                 chain_ok = False
                 break
             payload_digest = sha256b64(js_dumps(ev.get("payload")))
@@ -603,7 +633,9 @@ def verify_package(path):
             prev = ev["eventDigest"]
         push("events", "Event chain intact",
              PASS if chain_ok else FAIL,
-             f"{event_count} events, chain and digests consistent" if chain_ok else f"chain broken at sequence {seq}")
+             (f"{event_count} events consistent from sequence {from_seq} - link to earlier events not verifiable from this package"
+              if from_seq > 1 else f"{event_count} events, chain and digests consistent")
+             if chain_ok else f"chain broken at sequence {seq}")
         if er:
             expected = er.get("toSequence", 0) - er.get("fromSequence", 1) + 1
             if (expected != event_count or er.get("fromSequence", 1) > er.get("toSequence", 0)
