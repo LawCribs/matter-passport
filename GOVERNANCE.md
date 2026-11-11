@@ -20,7 +20,7 @@ The binding rules are in `PROTOCOL.md` "Compatibility policy". In brief:
 
 ## How changes happen
 
-1. **Proposal** - email info@lawcribs.com with subject `Matter Passport proposal`, or open an issue on the public repository when one exists. Proposals should state the problem, the smallest spec delta that solves it, and the trust-model impact.
+1. **Proposal** - open an issue at https://github.com/LawCribs/matter-passport/issues, or email info@lawcribs.com with subject `Matter Passport proposal`. Proposals should state the problem, the smallest spec delta that solves it, and the trust-model impact.
 2. **Design review** - LawCribs reviews for spec soundness and trust-model fit (the honest-labels rule is not negotiable: no change may collapse distinct assurance levels into a single verdict). Accepted proposals are drafted as spec changes.
 3. **Publication** - a spec change ships with, at minimum: the doc update, fixture or vector additions where behavior is observable, a conformance-checklist update, and parity in `conformance/lawcribs_conformance.py`. This is already the rule the project follows for every passport change.
 4. **Versioning** - additive changes bump minor (or patch for typo-level fixes); breaking changes bump major with a migration note in the changelog.

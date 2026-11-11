@@ -21,14 +21,15 @@ Entry point for external verifiers and integrators.
 
 ## Download the code
 
-Everything below is public and MIT licensed - no LawCribs account or repository access required:
+The canonical repository is https://github.com/LawCribs/matter-passport - clone it or browse the files on GitHub. Everything is public and MIT licensed for code, CC-BY-4.0 for spec text; no LawCribs account is required. The same files are mirrored for direct download under `/matter-passport-spec/`:
 
-- `/matter-passport-spec/conformance/lawcribs_conformance.py` - zero-dependency Python reference verifier (+ `conformance/README.md`)
-- `/matter-passport-spec/sdk/` - the standalone TypeScript verification modules (`hash.ts`, `canonical.ts`, `merkle.ts`, `signing.ts`, `verify.ts`, `types.ts`, `sdk.ts`)
-- `/matter-passport-spec/tools/verify-passport.mjs` - reference Node CLI (needs `jszip`)
-- `/matter-passport-spec/tools/generate-passport-fixtures.mjs` - fixture generator (maintainers)
+- `conformance/lawcribs_conformance.py` - zero-dependency Python reference verifier (+ `conformance/README.md`)
+- `sdk/` - the standalone TypeScript verification modules (`hash.ts`, `canonical.ts`, `merkle.ts`, `signing.ts`, `verify.ts`, `types.ts`, `sdk.ts`)
+- `tools/verify-passport.mjs` - reference Node CLI (needs `jszip`)
+- `tools/generate-passport-fixtures.mjs` - fixture generator (maintainers)
+- `fixtures/` - known-good packages, expected reports, receipts, and known-answer vectors
 
-Licensing: specification text is CC-BY-4.0, code is MIT - see `LICENSE.md`. "Matter Passport" is a LawCribs trademark - see `TRADEMARK.md`.
+Licensing: specification text is CC-BY-4.0, code is MIT - see `LICENSE.md`. "Matter Passport" is a LawCribs trademark - see `TRADEMARK.md`. Protocol proposals and issues: https://github.com/LawCribs/matter-passport/issues.
 
 ## Independent verifier
 
@@ -42,7 +43,7 @@ python lawcribs_conformance.py receipt fixtures/receipts/receipt-accepted.json
 
 (run from the directory containing the downloaded `lawcribs_conformance.py` and `fixtures/` - both under `/matter-passport-spec/`)
 
-CI (`.github/workflows/passport-conformance.yml`) regenerates fixtures and runs this verifier plus the app's own suite on every passport change. `npm run conformance` runs the vectors locally; `tools/verify-passport.mjs <file.lcp>` is the reference Node CLI.
+CI regenerates fixtures and runs this verifier on every change - in the public repository (`.github/workflows/passport-conformance.yml`) and in the LawCribs app. `npm run fixtures` regenerates fixtures in the public repo; `tools/verify-passport.mjs <file.lcp>` is the reference Node CLI.
 
 ## API surface
 

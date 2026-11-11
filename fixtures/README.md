@@ -16,7 +16,7 @@ Each package directory ships `passport.lcp` plus `manifest.json`, `manifest-sign
 ## Regenerating
 
 ```sh
-# matter-passport repository:
+# matter-passport repository (https://github.com/LawCribs/matter-passport):
 node tools/generate-passport-fixtures.mjs fixtures
 
 # LawCribs application repository (default output docs/matter-passport/fixtures):
