@@ -1,0 +1,16 @@
+{
+  "id": "fx-snap-a-sig",
+  "snapshotId": "fx-snap-a",
+  "keyId": "fx-key-a",
+  "algorithm": "ES256",
+  "payloadDigest": "Ra33S-G9Y2h89Vob2GpP6VlyRMzeTjmBoJ37y1kcfz0",
+  "signatureValue": "R1FA-YBMWR0I1hUrvNbQM0mQLFzXlubL7Uc-F6BHOQU5AEbWbqeERATotVn3_gN1dbrUbkPmr7Hozj_oqyVqxA",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "x": "yKOvWzF159ZfqPZ4QOIxs1Tz77xU263HSaXpt5H2bxA",
+    "y": "-cIyNJMqFo9uLyKbWmQ1FtcQFC2Xf22biuexUw3gR34",
+    "crv": "P-256"
+  },
+  "timeAssuranceLevel": "client-reported",
+  "createdAt": "2026-01-15T10:00:00.000Z"
+}

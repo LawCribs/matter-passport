@@ -1,0 +1,103 @@
+{
+  "description": "lc-pproof-v1 Merkle vectors - sorted leaves, domain-tagged leaf/node hashes, odd-leaf duplication",
+  "leaves": [
+    "alpha-digest",
+    "bravo-digest",
+    "charlie-digest",
+    "delta-digest",
+    "echo-digest"
+  ],
+  "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8",
+  "proofs": [
+    {
+      "leafIndex": 0,
+      "siblings": [
+        {
+          "position": "right",
+          "digest": "UjWXVtjFbCWWvJ3Wxf84wRnuEQUDMFbT2nhF53Gf1FI"
+        },
+        {
+          "position": "right",
+          "digest": "ZWQq6mZFRvDanElyQIoksYqRTz0t3NocrB2UCuAqV5E"
+        },
+        {
+          "position": "right",
+          "digest": "b6XPkDTRYx0Ni2K31KSu2pKtskW0ldQ-sUZSOVDtWws"
+        }
+      ],
+      "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8"
+    },
+    {
+      "leafIndex": 1,
+      "siblings": [
+        {
+          "position": "left",
+          "digest": "juNbHI3mV_jXPX54xVfeB84qVHPzlEgeLggzCL-DD1o"
+        },
+        {
+          "position": "right",
+          "digest": "ZWQq6mZFRvDanElyQIoksYqRTz0t3NocrB2UCuAqV5E"
+        },
+        {
+          "position": "right",
+          "digest": "b6XPkDTRYx0Ni2K31KSu2pKtskW0ldQ-sUZSOVDtWws"
+        }
+      ],
+      "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8"
+    },
+    {
+      "leafIndex": 2,
+      "siblings": [
+        {
+          "position": "right",
+          "digest": "C6fOG27n-XU_I3Y7_AYUYueHlff-S2FWxqNOl0KzHPY"
+        },
+        {
+          "position": "left",
+          "digest": "cYq7q7TnBPpGvP7obo6yx4ZKSYxDesXM7ryFDSpRUbQ"
+        },
+        {
+          "position": "right",
+          "digest": "b6XPkDTRYx0Ni2K31KSu2pKtskW0ldQ-sUZSOVDtWws"
+        }
+      ],
+      "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8"
+    },
+    {
+      "leafIndex": 3,
+      "siblings": [
+        {
+          "position": "left",
+          "digest": "_jQTAOPGAeIQ6nmJEAl5nT1XQyrMFsNeRw7oswo5j-A"
+        },
+        {
+          "position": "left",
+          "digest": "cYq7q7TnBPpGvP7obo6yx4ZKSYxDesXM7ryFDSpRUbQ"
+        },
+        {
+          "position": "right",
+          "digest": "b6XPkDTRYx0Ni2K31KSu2pKtskW0ldQ-sUZSOVDtWws"
+        }
+      ],
+      "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8"
+    },
+    {
+      "leafIndex": 4,
+      "siblings": [
+        {
+          "position": "right",
+          "digest": "dI94SZ6EQvJFrrFnXP2yni0sTZB0r9bvJPLvQgnNSGU"
+        },
+        {
+          "position": "right",
+          "digest": "6-sjvNgGpPHxNdaim9SadaCg2sXwD0mD14kI63KoXN8"
+        },
+        {
+          "position": "left",
+          "digest": "YyMUY0tdEobwskhO7E434y20Zy0BQpUkckXH0ymcdt0"
+        }
+      ],
+      "root": "Xg7WeFQBHTZtZHNtblcatx9dfo88uuw5F1UH4s56VN8"
+    }
+  ]
+}

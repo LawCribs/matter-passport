@@ -1,0 +1,15 @@
+{
+  "name": "matter-passport",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Matter Passport - open specification, conformance fixtures, and reference tooling for cryptographically verifiable legal matter records.",
+  "license": "SEE LICENSE.md IN EACH DIRECTORY",
+  "scripts": {
+    "fixtures": "node tools/generate-passport-fixtures.mjs fixtures",
+    "verify": "node tools/verify-passport.mjs"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}

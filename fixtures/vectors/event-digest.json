@@ -1,0 +1,28 @@
+{
+  "description": "Event chain digest vectors - payloadDigest = sha256(JSON.stringify(payload)); eventDigest = sha256(seq|type|prevOrEmpty|payloadDigest)",
+  "events": [
+    {
+      "sequenceNumber": 1,
+      "eventType": "passport.created",
+      "previousEventDigest": null,
+      "payload": {
+        "matterId": "fx-matter-001",
+        "note": "genesis payload"
+      },
+      "payloadDigest": "wVZG3slGawKdHp1WNNMpKuRhaM8gix-2kow4gQTMQKo",
+      "eventDigest": "p3b0iyFhGtm7CnQgSLEEch2hSqyl24yjbpDrId-AlRQ"
+    },
+    {
+      "sequenceNumber": 2,
+      "eventType": "record.registered",
+      "previousEventDigest": "p3b0iyFhGtm7CnQgSLEEch2hSqyl24yjbpDrId-AlRQ",
+      "payload": {
+        "recordId": "fx-record-001",
+        "filename": "exhibit-a.txt",
+        "digestValue": "abc123"
+      },
+      "payloadDigest": "dyDLJhqFCI0X2td1OQPsN0D_MiHTLRxf0gMtdtLQGcQ",
+      "eventDigest": "twofOmlvXoE917tR4K-a7qUel3o37VH-RiSsijFhYQA"
+    }
+  ]
+}

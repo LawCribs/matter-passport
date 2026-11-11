@@ -1,0 +1,14 @@
+{
+  "description": "lc-transfer-v1 envelope vector - AES-256-GCM, 12-byte IV, ciphertext||tag in data (standard base64); the share-link #k= fragment carries the raw 32-byte key as JWK k (base64url); the stored blob is base64(JSON.stringify(envelope))",
+  "key": {
+    "kty": "oct",
+    "k": "MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY",
+    "alg": "A256GCM"
+  },
+  "envelope": {
+    "v": "lc-transfer-v1",
+    "iv": "ZngtaXYtMDEyMzQ1",
+    "data": "2u5wFst+OTBcy0QZGtHRI5jhddlYCN9pMXG5MUQ85E6JdjEgdH62RLTEj/kjRbgB3dN53OvZGt51"
+  },
+  "plaintextBase64": "bGMtdHJhbnNmZXItdjEgY29uZm9ybWFuY2UgdmVjdG9yIHBheWxvYWQ="
+}

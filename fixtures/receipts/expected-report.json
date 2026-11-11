@@ -1,0 +1,20 @@
+{
+  "description": "Expected receipt verification results",
+  "receipts": [
+    {
+      "file": "receipt-accepted.json",
+      "signature": "pass",
+      "binding": "must-match-caller-supplied-digests"
+    },
+    {
+      "file": "receipt-wrong-binding.json",
+      "signature": "pass",
+      "binding": "fails against snapshot-a manifestDigest"
+    },
+    {
+      "file": "receipt-tampered-payload.json",
+      "signature": "fail",
+      "note": "payload altered after signing - canonical bytes no longer match signature"
+    }
+  ]
+}

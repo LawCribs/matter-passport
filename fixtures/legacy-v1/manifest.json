@@ -1,0 +1,58 @@
+{
+  "format": "lawcribs-matter-passport",
+  "formatVersion": "1.0.0",
+  "schemaVersion": "1.0.0",
+  "matterId": "fx-matter-001",
+  "snapshotId": "fx-snap-legacy",
+  "createdAt": "2026-01-15T10:00:00.000Z",
+  "scope": {
+    "type": "full",
+    "description": "Legacy v1 conformance fixture - full snapshot"
+  },
+  "records": [
+    {
+      "recordId": "fx-record-001",
+      "recordType": "evidence",
+      "filename": "exhibit-a.txt",
+      "mediaType": "text/plain",
+      "size": 57,
+      "digest": {
+        "algorithm": "sha-256",
+        "encoding": "base64url",
+        "value": "yAgvH4RpH--fijOgzR65P5-fZLph82FEBbO3ulKL9ig"
+      },
+      "contentLocation": "records/fx-record-001/content.bin",
+      "provenanceClass": "user-supplied"
+    },
+    {
+      "recordId": "fx-record-002",
+      "recordType": "contract",
+      "filename": "retainer-agreement.pdf",
+      "mediaType": "application/pdf",
+      "size": 4096,
+      "digest": {
+        "algorithm": "sha-256",
+        "encoding": "base64url",
+        "value": "mcnBLbvk_mvDgn3JlwAEnN1hwdIqh_MhuAQncYjCJ7E"
+      },
+      "contentLocation": "records/fx-record-002/content.bin",
+      "provenanceClass": "user-supplied"
+    }
+  ],
+  "eventRange": {
+    "fromSequence": 1,
+    "toSequence": 3
+  },
+  "integrity": {
+    "canonicalization": "JCS-lite",
+    "manifestDigestAlgorithm": "sha-256",
+    "merkleRoot": "aJQbrJ1D1fMvObmDpHo4eSKJW0ClNFfOIizxNepvJDk"
+  },
+  "signatures": [
+    {
+      "signatureId": "fx-sig-legacy",
+      "algorithm": "ES256",
+      "keyId": "fx-key-legacy"
+    }
+  ]
+}

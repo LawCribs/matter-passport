@@ -1,0 +1,66 @@
+{
+  "description": "Expected check results for a conformant verifier",
+  "checks": [
+    {
+      "id": "parse",
+      "status": "pass"
+    },
+    {
+      "id": "manifest",
+      "status": "pass"
+    },
+    {
+      "id": "schema",
+      "status": "pass"
+    },
+    {
+      "id": "protocol",
+      "status": "info"
+    },
+    {
+      "id": "records",
+      "status": "warn"
+    },
+    {
+      "id": "events",
+      "status": "pass"
+    },
+    {
+      "id": "merkle",
+      "status": "pass"
+    },
+    {
+      "id": "signature",
+      "status": "pass"
+    },
+    {
+      "id": "identity",
+      "status": "info"
+    },
+    {
+      "id": "keylineage",
+      "status": "pass"
+    },
+    {
+      "id": "keystatus",
+      "status": "info"
+    },
+    {
+      "id": "lineage",
+      "status": "info"
+    },
+    {
+      "id": "timestamp",
+      "status": "info"
+    },
+    {
+      "id": "scope",
+      "status": "info"
+    }
+  ],
+  "recordCount": 3,
+  "eventCount": 9,
+  "scope": "selected",
+  "manifestDigest": "BnSa-iINteqXw9eEblpIFekiYQ4wasRxx9vNvtcTicA",
+  "merkleRoot": "uFNteQpLAB9bcDsTuG3u2VRitSpDdAJqAstAXG2dKE8"
+}

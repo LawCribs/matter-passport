@@ -1,0 +1,16 @@
+{
+  "id": "fx-sig-legacy",
+  "snapshotId": "fx-snap-legacy",
+  "keyId": "fx-key-legacy",
+  "algorithm": "ES256",
+  "payloadDigest": "LZjyRCDtlWSPQd3mFcgo2Ln4za3kOgNBWCfvK9ZLbGQ",
+  "signatureValue": "_orvkCIbDPzv3z_KRW6uDpd6wJLdE3nNSVh1QQaisq08nGTmaKLlrj2X6NL0R37sQDpEkXMVR87J3jZxNxlO7A",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "x": "JXZtKgz4VELKmpySrILiZ-9naYbNtFRIcYVCaRFx1ME",
+    "y": "32e0mryNWARbTl8opTUJW2jNBAyR0wcPUroyGthxf7k",
+    "crv": "P-256"
+  },
+  "timeAssuranceLevel": "client-reported",
+  "createdAt": "2026-01-15T10:00:00.000Z"
+}

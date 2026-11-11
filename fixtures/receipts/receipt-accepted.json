@@ -1,0 +1,19 @@
+{
+  "payload": {
+    "version": "lc-transfer-receipt-v1",
+    "tokenHash": "HYhOoIersMlwYZDQ8V5xXyF4OwDQ7O-xgxYh3j42VQo",
+    "snapshotId": "fx-snap-a",
+    "manifestDigest": "Ra33S-G9Y2h89Vob2GpP6VlyRMzeTjmBoJ37y1kcfz0",
+    "decision": "accepted",
+    "createdAt": "2026-01-15T11:00:00.000Z"
+  },
+  "algorithm": "ES256",
+  "signatureValue": "YWpUETFX1cDDaRjGirKS-57J4lNEWx7Nembu0Cs4_2HY_RXMzcWrhmtQGXdTq9UdAOLgseKdECqWd64ojtTfVw",
+  "publicKeyJwk": {
+    "kty": "EC",
+    "x": "xH4O819Ywrls5Ai_46E6IsRVkUCefHebXKkzUdtsIb4",
+    "y": "Mf5tj_jAJm4JWQhrcr00QoGVtbWPYlVAiLF3rnyK1k0",
+    "crv": "P-256"
+  },
+  "keyFingerprint": "uiDHgt63ZO_spa-RIaJ698osYNVygiUM_z0pBY5ySMo"
+}

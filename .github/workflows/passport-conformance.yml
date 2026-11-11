@@ -1,0 +1,73 @@
+name: Matter Passport Conformance
+
+on:
+  push:
+    paths:
+      - "*.md"
+      - "conformance/**"
+      - "sdk/**"
+      - "tools/**"
+      - "fixtures/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "*.md"
+      - "conformance/**"
+      - "sdk/**"
+      - "tools/**"
+      - "fixtures/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/**"
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      # Regenerate fixtures, then prove the independent Python verifier
+      # (written from the spec, zero dependencies) accepts every package
+      # and vector - and that the reference Node CLI agrees.
+      - name: Regenerate fixtures
+        run: node tools/generate-passport-fixtures.mjs fixtures
+
+      - name: Independent verifier - vectors
+        run: python conformance/lawcribs_conformance.py vectors fixtures/vectors
+
+      - name: Independent verifier - packages
+        run: |
+          python conformance/lawcribs_conformance.py package fixtures/legacy-v1/passport.lcp
+          python conformance/lawcribs_conformance.py package fixtures/basic/snapshot-a/passport.lcp
+          python conformance/lawcribs_conformance.py package fixtures/basic/snapshot-b/passport.lcp
+
+      - name: Independent verifier - receipts
+        run: |
+          python conformance/lawcribs_conformance.py receipt fixtures/receipts/receipt-accepted.json
+          python conformance/lawcribs_conformance.py receipt fixtures/receipts/receipt-wrong-binding.json
+
+      # Negative gate: the tampered receipt MUST fail verification.
+      - name: Independent verifier - tampered receipt rejected
+        run: |
+          if python conformance/lawcribs_conformance.py receipt fixtures/receipts/receipt-tampered-payload.json; then
+            echo "tampered receipt unexpectedly verified"; exit 1
+          fi
+
+      - name: Reference CLI - fixture packages
+        run: |
+          node tools/verify-passport.mjs fixtures/legacy-v1/passport.lcp
+          node tools/verify-passport.mjs fixtures/basic/snapshot-a/passport.lcp
+          node tools/verify-passport.mjs fixtures/basic/snapshot-b/passport.lcp

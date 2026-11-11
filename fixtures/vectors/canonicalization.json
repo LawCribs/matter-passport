@@ -1,0 +1,149 @@
+{
+  "description": "JCS-lite canonicalization vectors - canonical form and SHA-256 b64url digest of the canonical bytes",
+  "vectors": [
+    {
+      "name": "flat object",
+      "input": {
+        "b": 1,
+        "a": 2
+      },
+      "canonical": "{\"a\":2,\"b\":1}",
+      "sha256": "02JqwwqH5vemQoIzs8aCmZdoZfpVCOQmfFQVx2r3p3I"
+    },
+    {
+      "name": "nested key sort",
+      "input": {
+        "z": {
+          "b": 1,
+          "a": 2
+        },
+        "a": [
+          {
+            "d": 4,
+            "c": 3
+          }
+        ]
+      },
+      "canonical": "{\"a\":[{\"c\":3,\"d\":4}],\"z\":{\"a\":2,\"b\":1}}",
+      "sha256": "K7N5xmB5jAD02zVjg-snsrAvkPk21_RqKA1JG7-TlIw"
+    },
+    {
+      "name": "array order preserved",
+      "input": {
+        "list": [
+          3,
+          1,
+          2
+        ],
+        "items": [
+          {
+            "y": 1,
+            "x": 2
+          },
+          {
+            "b": 1,
+            "a": 2
+          }
+        ]
+      },
+      "canonical": "{\"items\":[{\"x\":2,\"y\":1},{\"a\":2,\"b\":1}],\"list\":[3,1,2]}",
+      "sha256": "xqVn5-jRlv2JxxS3o2lDFocU9AQXeyY6D4GX69jU-PE"
+    },
+    {
+      "name": "unicode",
+      "input": {
+        "text": "Crème brûlée - solicitor's café"
+      },
+      "canonical": "{\"text\":\"Crème brûlée - solicitor's café\"}",
+      "sha256": "pldjChWJ1P9cLjmNZHD9cxGOVKA6I1kkyfIhmmqg_BU"
+    },
+    {
+      "name": "astral characters",
+      "input": {
+        "note": "scales of justice ⚖ and mathematical 𝐥𝐚𝐰"
+      },
+      "canonical": "{\"note\":\"scales of justice ⚖ and mathematical 𝐥𝐚𝐰\"}",
+      "sha256": "HxGQysJBtUzS7yY7-PsPSdek_rmFl8sFhbV_j0aECH0"
+    },
+    {
+      "name": "string escapes",
+      "input": {
+        "s": "quote\" backslash\\ newline\n tab\t nul\u0001"
+      },
+      "canonical": "{\"s\":\"quote\\\" backslash\\\\ newline\\n tab\\t nul\\u0001\"}",
+      "sha256": "DzjKOERiXKapnisTjDnkNcioThcY0rnPKZ-4LJiSrtA"
+    },
+    {
+      "name": "line separator",
+      "input": {
+        "s": "a b c"
+      },
+      "canonical": "{\"s\":\"a b c\"}",
+      "sha256": "Wy3AYqwtBcS1GjiN0OmemxYcbG8P7-7zlimJCkKQK4Q"
+    },
+    {
+      "name": "empty containers",
+      "input": {
+        "obj": {},
+        "arr": []
+      },
+      "canonical": "{\"arr\":[],\"obj\":{}}",
+      "sha256": "fFV4gM7thhQBsEvmc1yXCOMmQn4HJWL9JZ2m9qJhK5Y"
+    },
+    {
+      "name": "primitives",
+      "input": {
+        "n": null,
+        "t": true,
+        "f": false,
+        "i": 42,
+        "neg": -7
+      },
+      "canonical": "{\"f\":false,\"i\":42,\"n\":null,\"neg\":-7,\"t\":true}",
+      "sha256": "G7Acuw6KzuS64lgqbI8b9yVerKIV5UomRfBNZnozkWU"
+    },
+    {
+      "name": "number forms",
+      "input": {
+        "int": 9007199254740991,
+        "float": 1.5,
+        "exp": 1e+21,
+        "negzero": 0
+      },
+      "canonical": "{\"exp\":1e+21,\"float\":1.5,\"int\":9007199254740991,\"negzero\":0}",
+      "sha256": "NO26oNM40kBYPXgXx673K6yPtnKJ04KU0SP21vEBkrA"
+    },
+    {
+      "name": "utf16 key order",
+      "input": {
+        "b": 1,
+        "A": 2,
+        "a": 3,
+        "Z": 4
+      },
+      "canonical": "{\"A\":2,\"Z\":4,\"a\":3,\"b\":1}",
+      "sha256": "Vn19opLXri8fGzPIdqbQbXdepLMLLlGlhBb5yr19cyk"
+    },
+    {
+      "name": "deep nesting",
+      "input": {
+        "a": {
+          "b": {
+            "c": {
+              "d": {
+                "e": [
+                  1,
+                  {
+                    "f": 2
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "canonical": "{\"a\":{\"b\":{\"c\":{\"d\":{\"e\":[1,{\"f\":2}]}}}}}",
+      "sha256": "VBcIB_3Zr7L1ilb0o6hKXMyYR_dChO6EUzwr2EN72B0"
+    }
+  ]
+}
